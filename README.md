@@ -1,4 +1,4 @@
-## 쌍용교육센터 방명록 게시판
+## Spring 방명록 게시판
 
 ### 개요
 * **Spring Framework**를 이용한 게시판 개발 및 계정 로그인은 **Spring Security** 적용하였습니다.
