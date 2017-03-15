@@ -46,8 +46,11 @@
 		<div class="panel-group">
 			<div class="btn-group btn-group-justified" style="margin-bottom: 5px;">
 				<a href="adminbooklist.it" class="btn btn-default active">방명록관리</a>
-				<a href="adminpicturelist.it" class="btn btn-default">사진목록관리</a> <a
-					href="logout.it" class="btn btn-default">로그아웃</a>
+				<a href="adminpicturelist.it" class="btn btn-default">사진목록관리</a>
+				
+				<%-- Spring Security에 지정한 로그아웃 요청 주소 지정 --%>
+				<a href="j_spring_security_logout" class="btn btn-default">로그아웃</a>
+				
 			</div>
 
 			<div class="panel panel-default">

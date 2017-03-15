@@ -549,18 +549,21 @@ function currentPage(idx) {
 				<div class="modal-body">
 
 					<!-- 로그인 진행시 아이디와 패스워드를 서버로 전송해야 한다. -->
-					<form action="login.it" method="post">
+					<!-- action="" 속성에 Spring Security 전용 주소 지정 -->
+					<form action="j_spring_security_check" method="post">
 
 						<!--아이디는 입력 폼 사용 -->
+						<!-- name="" 속성에 Spring Security 전용 식별자 지정 -->
 						<div class="form-group">
 							<input type="text" placeholder="ID (20자 이내)" class="form-control"
-								id="id" name="id" required maxlength="20">
+								id="id" name="j_username"  required maxlength="20">
 						</div>
 
 						<!-- 패스워드는 입력 폼 사용 -->
+						<!-- name="" 속성에 Spring Security 전용 식별자 지정 -->
 						<div class="form-group">
 							<input type="password" placeholder="PASSWORD (20자 이내)"
-								class="form-control" id="pw" name="pw" required maxlength="20">
+								class="form-control" id="pw" name="j_password" required maxlength="20">
 						</div>
 
 						<button type="submit" class="btn btn-default">로그인</button>
