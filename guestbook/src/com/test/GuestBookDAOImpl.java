@@ -18,7 +18,7 @@ public class GuestBookDAOImpl implements GuestBookDAO {
 	@Override
 	public List<GuestBook> guestBookList(Map<String, String> map) {
 		GuestBookDAO dao = (GuestBookDAO) sqlSession.getMapper(GuestBookDAO.class);
-		List<GuestBook> list = dao.guestBookList(map);
+		List<GuestBook> list = dao.guestBookList(map);// GuestBookDAO.xml 의 sql문 실행
 		return list;
 	}
 
@@ -53,15 +53,21 @@ public class GuestBookDAOImpl implements GuestBookDAO {
 	@Override
 	public List<GuestBook> adminBookList(Map<String, String> map) {
 		GuestBookDAO dao = (GuestBookDAO) sqlSession.getMapper(GuestBookDAO.class);
-
-		return null;
+		List<GuestBook> list = dao.adminBookList(map);// GuestBookDAO.xml 의 sql문 실행
+		return list;
 	}
 
 	@Override
-	public int adminBlind(GuestBook g) {
+	public int adminBlind(GuestBook gb) {
 		GuestBookDAO dao = (GuestBookDAO) sqlSession.getMapper(GuestBookDAO.class);
-		
-		
-		return 0;
+		int result = dao.adminBlind(gb);// GuestBookDAO.xml 의 sql문 실행
+		return result;
+	}
+
+	@Override
+	public List<Picture> pictureList() {
+		GuestBookDAO dao = (GuestBookDAO) sqlSession.getMapper(GuestBookDAO.class);
+		List<Picture> list = dao.pictureList();
+		return list;
 	}
 }

@@ -126,7 +126,7 @@
  						-->
  						
  						<%-- 문제) 데이터베이스에서 읽어온 사진 정보 출력하는 과정 작성 --%>
- 						<c:forEach var="p" items="${list}">
+ 						<c:forEach var="p" items="${plist}">
 						<div class="col-md-3">
 							<div class="thumbnail">
 								<a href="${pageContext.request.contextPath}/picture/${p.guestBookPicFileName}" target="_blank">

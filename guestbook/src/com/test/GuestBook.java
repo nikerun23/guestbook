@@ -3,8 +3,8 @@ package com.test;
 public class GuestBook {
 	
 	//데이터베이스 테이블의 컬럼명을 멤버로 등록
-	//gid, name, pw, content, writeday, blind
-	private int gid, blind;
+	//rn, gid, name, pw, content, writeday, blind
+	private int gid, blind, rn;
 	private String name, pw, content, writeday;
 	
 	//IP주소를 관리하기 위한 멤버 추가
@@ -61,6 +61,11 @@ public class GuestBook {
 	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
-	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 
 }

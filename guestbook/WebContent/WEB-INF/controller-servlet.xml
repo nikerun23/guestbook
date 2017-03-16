@@ -33,9 +33,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@211.63.89.71:1521:xe" />
-		<property name="username" value="hyengeun" />
-		<property name="password" value="1234" />
+		<property value="jdbc:oracle:thin:@211.63.89.71:1521:xe" name="url" />
+		<property value="hyengeun" name="username" />
+		<property value="1234" name="password" />
 	</bean>
 
 	<!-- Spring JDBC 환경 설정 제거 -->
@@ -56,7 +56,6 @@
 		<!-- 생성자에 의한 의존주입 -->
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-
 
 	<!-- 파일 업로드 객체 등록 -->
 	<bean id="multipartResolver"

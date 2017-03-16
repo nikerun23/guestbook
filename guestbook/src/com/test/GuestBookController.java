@@ -23,7 +23,7 @@ public class GuestBookController {
 	/* @RequestMapping 어노테이션과 연결된 메소드만 서블릿 요청에 대한 응답 메소드가 될 수 있다. */
 	/* 응답 메소드의 매개 변수 지정은 SpringWebMVC에 의해 자동 분석되기 때문에, 필요한 객체를 요청할 때 사용한다. */
 	@RequestMapping(value = "/guestbooklist.it", method = { RequestMethod.GET, RequestMethod.POST })
-	public String guestbooklist(ModelMap model, String skey, String svalue) {
+	public String guestbooklist(ModelMap model, String skey, String svalue, String pagePerCount, String page) {
 
 		List<GuestBook> list = null;
 		int totalcount = 0;
@@ -33,11 +33,20 @@ public class GuestBookController {
 			skey = "all";
 			svalue = "";
 		}
-
+		
+		System.out.println("pagePerCount ="+pagePerCount);
+		System.out.println("page ="+page);
+		
+		int start = 1;
+		int end = 10;
+		
 		Map<String, String> map1 = new HashMap<String, String>();
 		map1.put("key", skey);
 		map1.put("value", svalue);
+		map1.put("start", String.valueOf(start));
+		map1.put("end", String.valueOf(end));
 
+		// totalCount
 		Map<String, String> map2 = new HashMap<String, String>();
 		map2.put("key", "user");
 
@@ -45,12 +54,21 @@ public class GuestBookController {
 		totalcount = dao.totalCount(map2);
 		count = list.size();
 
+		// PictureList
+		List<Picture> pList = null;
+		pList = dao.pictureList();//인터페이스(Impl)pictureList 실행
+		int pCount = pList.size();
+		
 		/* 서블릿 액션의 결과를 JSP 페이지(View)에 전달하는 경우 Model 객체를 사용한다. */
 		model.addAttribute("list", list);
 		model.addAttribute("totalcount", totalcount);
 		model.addAttribute("count", count);
 		model.addAttribute("skey", skey);
 		model.addAttribute("svalue", svalue);
+		
+		// PictureList
+		model.addAttribute("plist", pList);
+		model.addAttribute("pCount", pCount);
 		
 		/* View 정보를 반환하는 부분 */
 		return "guestbooklist"; // "/WEB-INF/source/guestbooklist.jsp"

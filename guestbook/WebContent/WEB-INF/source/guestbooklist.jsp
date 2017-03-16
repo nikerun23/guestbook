@@ -245,7 +245,7 @@ function currentPage(idx) {
 					<button type="button" class="btn btn-default btn-xs btnPictureList"
 						data-toggle="modal" data-target="#pictureListModal">
 						<%-- pictureList <span class="badge">3</span> --%>
-						pictureList <span class="badge"></span>
+						pictureList <span class="badge">${pCount}</span>
 					</button>
 					<button type="button" class="btn btn-default btn-xs btnMap"
 						id="map">Map</button>

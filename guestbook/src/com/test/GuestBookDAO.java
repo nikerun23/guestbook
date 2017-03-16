@@ -27,4 +27,6 @@ public interface GuestBookDAO {
 	// 관리자용 방명록 게시물 블라인드 처리 메소드
 	public int adminBlind(GuestBook g);
 
+	// 사진 목록 출력 메소드
+	public List<Picture> pictureList();
 }

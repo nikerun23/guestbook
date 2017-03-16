@@ -26,10 +26,9 @@ mapper 엘리먼트에 namespace="인터페이스" 속성 추가
 	주의) 문장 끝에 ; 가 있으면 안된다.
  	-->	
 	<select id="guestBookList" resultType="com.test.GuestBook">
-		SELECT gid, name, pw, content, DECODE(TO_CHAR(writeday, 'YYYY-MM-DD'),
-		TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(writeday, 'HH24:MI'),
-		TO_CHAR(writeday, 'YYYY-MM-DD')) AS writeday, userOption FROM guestbook
-		<if test="key == 'all'"></if>
+		SELECT rn, gid, name, content, writeday, blind, userOption 
+			FROM guestbookview
+		<if test="key == 'all'">WHERE blind = 0</if>
 		<if test="key == 'gid'">WHERE blind = 0 AND ${key} = #{value}</if>
 		<if test="key == 'name'">WHERE blind = 0 AND INSTR(${key}, #{value}) > 0</if>
 		<if test="key == 'content'">WHERE blind = 0 AND INSTR(${key}, #{value}) > 0</if>
@@ -47,13 +46,41 @@ mapper 엘리먼트에 namespace="인터페이스" 속성 추가
 	
 	<select id="totalCount" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS "count" FROM guestbook
-		<if test="key='admin'"></if>
-		<if test="key='user'">WHERE blind=0</if>
+		<if test="key == 'admin'"></if>
+		<if test="key == 'user'">WHERE blind=0</if>
 	</select>
 	
 	<select id="guestBookAjax" resultType="com.test.GuestBook">
 		SELECT content FROM guestbook
 		WHERE blind=0 AND gid = #{gid} AND pw = #{pw}
 	</select>
+	
+	<!-- id는 인터페이스와 일치해야한다. -->
+	<select id="adminBookList" resultType="com.test.GuestBook">
+		SELECT gid, name, pw, content, DECODE(TO_CHAR(writeday, 'YYYY-MM-DD')
+		, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(writeday, 'HH24:MI')
+		, TO_CHAR(writeday, 'YYYY-MM-DD')) AS writeday
+		, blind, ipaddress, userOption 
+		FROM guestbook
+		<!-- WHERE 구문 추가 -> key 기준 -> all, gid, name, content -->
+		<if test="key == 'all'"></if>
+		<if test="key == 'gid'">WHERE ${key} = #{value}</if>
+		<if test="key == 'name'">WHERE INSTR(${key}, #{value}) > 0", key)</if>
+		<if test="key == 'content'">WHERE INSTR(${key}, #{value}) > 0", key)</if>
+		ORDER BY gid DESC
+	</select>
+	
+	<!-- 관리자용 방명록 게시물 블라인드 처리 -->
+	<update id="adminBlind">
+		UPDATE guestbook SET blind = #{blind} WHERE gid = #{gid}
+	</update>
+	
+	<!-- 사진 목록 출력 액션 -->
+	<select id="pictureList" resultType="com.test.Picture">
+		SELECT picId, guestBookPicFileName, "comment" 
+			FROM guestBookPicture 
+			ORDER BY picId
+	</select>
+	
 
 </mapper>
