@@ -4,6 +4,7 @@
 * **Spring Framework**를 이용한 게시판 개발 및 계정 로그인은 **Spring Security** 적용하였습니다.
 
 ### 주요 기술
+* 참여도: **개인프로젝트**
 * JAVA, **Spring, MyBatis, SpringSecurity**, JSP, EL
 * HTML, CSS, BootStrap, JavaScript, jQuery
 * Oracle, Apache Tomcat v8.0, Eclipse, Atom
