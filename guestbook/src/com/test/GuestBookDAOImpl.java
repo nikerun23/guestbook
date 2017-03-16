@@ -70,4 +70,12 @@ public class GuestBookDAOImpl implements GuestBookDAO {
 		List<Picture> list = dao.pictureList();
 		return list;
 	}
+
+	@Override
+	public int pictureAdd(Picture p) {
+		GuestBookDAO dao = (GuestBookDAO) sqlSession.getMapper(GuestBookDAO.class);
+		int result = dao.pictureAdd(p);
+		return result;
+	}
+	
 }

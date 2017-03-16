@@ -92,7 +92,7 @@
 									</div></td>
 							</tr>
 							 -->
-							<%-- 문제) 관리자용 방명록 출력 과정 작성. JSTL, EL 표현 사용. --%>
+							<%-- 관리자용 방명록 출력 과정 작성. JSTL, EL 표현 사용. --%>
 							<c:forEach var="g" items="${list}"> 
 							 <tr>
 								<td ${g.blind==1?"style=\"text-decoration: line-through\"":""}>${g.gid}</td>

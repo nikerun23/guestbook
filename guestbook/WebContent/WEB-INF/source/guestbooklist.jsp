@@ -400,7 +400,7 @@ function currentPage(idx) {
 
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-						<!-- 문제) 이미지 출력 액션 코드 작성. JSTL, EL 표현 사용 -->
+						<!-- 이미지 출력 액션 코드 작성. JSTL, EL 표현 사용 -->
 						<!-- Indicators -->
 						<!-- data-slide-to="0" 속성을 사진 갯수만큼 지정한다. -->
 						<!-- class="active" 속성은 첫 번째로 보여질 사진에 지정한다. -->
@@ -419,7 +419,7 @@ function currentPage(idx) {
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
 
-							<!-- 문제) 이미지 출력 액션 코드 작성. JSTL, EL 표현 사용 -->
+							<!-- 이미지 출력 액션 코드 작성. JSTL, EL 표현 사용 -->
 							<!-- 사진 한 장 당 <div><img></div> 태그 구성 -->
 							<!-- 이미지 파일 이름은 영숫자(소문자)로만 표기된 파일 이름 권장 -->
 							<!-- class="active" 속성은 첫 번째로 보여질 사진에 지정 -->
@@ -509,7 +509,7 @@ function currentPage(idx) {
 					<!-- 삭제 진행시 번호와 패스워드를 서버로 전송해야 한다. -->
 					<form action="guestbookdelete.it" method="post">
 
-						<!-- 문제) 현재 페이지 번호, 한 페이지당 게시물 수를 서버로 전송하기 위한 준비. jQuery. -->
+						<!-- 현재 페이지 번호, 한 페이지당 게시물 수를 서버로 전송하기 위한 준비. jQuery. -->
 						<!-- 번호, 현재 페이지 번호, 한 페이지당 게시물 수 전송은 hidden form 사용 -->
 						<%-- hidden form 추가 --%>
 						<input type="hidden" id="gid2" name="gid" value="">
@@ -521,18 +521,14 @@ function currentPage(idx) {
 							<input type="password" placeholder="PASSWORD (20자 이내)"
 								class="form-control" id="pw2" name="pw" required maxlength="20">
 						</div>
-
 						<button type="submit" class="btn btn-default">삭제</button>
-
 					</form>
-
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default btn-sm"
 						data-dismiss="modal">Close</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 

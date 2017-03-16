@@ -25,9 +25,11 @@ mapper 엘리먼트에 namespace="인터페이스" 속성 추가
 	<select> 엘리먼트에 SELECT 쿼리 등록.
 	주의) 문장 끝에 ; 가 있으면 안된다.
  	-->	
+ 	<!-- 방명록 게시물 전체 출력 (페이징 처리 전) -->
 	<select id="guestBookList" resultType="com.test.GuestBook">
-		SELECT rn, gid, name, content, writeday, blind, userOption 
-			FROM guestbookview
+		SELECT gid, name, pw, content, DECODE(TO_CHAR(writeday, 'YYYY-MM-DD'),
+		TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(writeday, 'HH24:MI'),
+		TO_CHAR(writeday, 'YYYY-MM-DD')) AS writeday, userOption FROM guestbook
 		<if test="key == 'all'">WHERE blind = 0</if>
 		<if test="key == 'gid'">WHERE blind = 0 AND ${key} = #{value}</if>
 		<if test="key == 'name'">WHERE blind = 0 AND INSTR(${key}, #{value}) > 0</if>
@@ -35,52 +37,54 @@ mapper 엘리먼트에 namespace="인터페이스" 속성 추가
 		ORDER BY gid DESC
 	</select>
 
+	<!-- 방명록 게시물 입력 -->
 	<insert id="guestbookAdd">
 		INSERT INTO guestbook (gid, name, pw, content,writeday, ipaddress,userOption)
 		VALUES ((SELECT NVL(MAX(gid), 0) + 1 FROM guestbook), #{name}, #{pw},#{content}, SYSDATE, #{ipaddress},#{userOption})
 	</insert>
 
+	<!-- 방명록 게시물 삭제 -->
 	<delete id="guestbookRemove">
 		DELETE FROM guestbook WHERE gid = #{gid} AND pw = #{pw}
 	</delete>
 	
+	<!-- 방명록 게시물 전체 카운트 -->
 	<select id="totalCount" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS "count" FROM guestbook
-		<if test="key == 'admin'"></if>
 		<if test="key == 'user'">WHERE blind=0</if>
 	</select>
 	
+	<!-- 비밀글(Ajax 요청)에 대한 응답 -->
 	<select id="guestBookAjax" resultType="com.test.GuestBook">
 		SELECT content FROM guestbook
 		WHERE blind=0 AND gid = #{gid} AND pw = #{pw}
 	</select>
 	
-	<!-- id는 인터페이스와 일치해야한다. -->
-	<select id="adminBookList" resultType="com.test.GuestBook">
-		SELECT gid, name, pw, content, DECODE(TO_CHAR(writeday, 'YYYY-MM-DD')
+	<!-- 관리자용 방명록 게시물 전체출력 및 검색 -->
+	<select id="adminBookList"  resultType="com.test.GuestBook">
+	SELECT gid, name, pw, content, DECODE(TO_CHAR(writeday, 'YYYY-MM-DD')
 		, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(writeday, 'HH24:MI')
 		, TO_CHAR(writeday, 'YYYY-MM-DD')) AS writeday
-		, blind, ipaddress, userOption 
-		FROM guestbook
-		<!-- WHERE 구문 추가 -> key 기준 -> all, gid, name, content -->
+		, blind, ipaddress, userOption FROM guestbook
 		<if test="key == 'all'"></if>
 		<if test="key == 'gid'">WHERE ${key} = #{value}</if>
-		<if test="key == 'name'">WHERE INSTR(${key}, #{value}) > 0", key)</if>
-		<if test="key == 'content'">WHERE INSTR(${key}, #{value}) > 0", key)</if>
+		<if test="key == 'name'">WHERE INSTR(${key}, #{value}) > 0</if>
+		<if test="key == 'content'">WHERE INSTR(${key}, #{value}) > 0</if>
 		ORDER BY gid DESC
 	</select>
 	
 	<!-- 관리자용 방명록 게시물 블라인드 처리 -->
 	<update id="adminBlind">
-		UPDATE guestbook SET blind = #{blind} WHERE gid = #{gid}
+		UPDATE guestbook SET blind=#{blind} WHERE gid=#{gid}
 	</update>
-	
+
 	<!-- 사진 목록 출력 액션 -->
 	<select id="pictureList" resultType="com.test.Picture">
-		SELECT picId, guestBookPicFileName, "comment" 
-			FROM guestBookPicture 
-			ORDER BY picId
+		SELECT picId, guestBookPicFileName, "comment" FROM guestBookPicture ORDER BY picId
 	</select>
 	
-
+	<!--  사진 업로드 액션  -->
+	<insert id="pictureAdd">
+		INSERT INTO guestBookPicture (picId, guestBookPicFileName, "comment") VALUES ((SELECT NVL(MAX(picId), 0) + 1 FROM guestBookPicture), #{guestBookPicFileName}, #{comment})
+	</insert>
 </mapper>

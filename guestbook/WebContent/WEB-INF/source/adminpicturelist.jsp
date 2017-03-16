@@ -36,12 +36,10 @@
 	}); //ready 이벤트
 </script>
 
-
 </head>
 <body>
 
 	<div class="container">
-
 		<div>
 			<h1 style="font-size: x-large;">
 				<img src="${pageContext.request.contextPath}/img/sist_logo.png" alt="logo"
@@ -58,30 +56,28 @@
 				
 				<%-- Spring Security에 지정한 로그아웃 요청 주소 지정 --%>
 				<a href="j_spring_security_logout" class="btn btn-default">로그아웃</a>
-				
 			</div>
 
 			<div class="panel panel-default">
 				<div class="panel-heading">사진 업로드</div>
 				<div class="panel-body" id="demo">
-
-					<form role="form" action="adminpictureinsert.it" method="post" enctype="multipart/form-data" >
+				
+					<!-- 파일 업로드 액션을 위한 전용 속성 enctype="multipart/form-data" 추가 -->
+					<form role="form" action="adminpictureinsert.it" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<input type="text" class="form-control" id="comment" name="comment"
 								placeholder="사진 설명 (100자 이내)" maxlength="100" required="required">
 						</div>
 						<div class="form-group">
-							<input type="file" class="form-control" id="fileName"
-								name="fileName"  
+							<input type="file" class="form-control" id="file"
+								name="file"  
 								required="required">
 								<span class="help-block">(only .jpg or .png, 500K byte 이내)</span>
 						</div>
 						<button type="submit" class="btn btn-default">Submit</button>
 					</form>
-
 				</div>
 			</div>
-
 
 			<div class="panel panel-default">
 				<div class="panel-heading">사진 목록</div>
@@ -125,7 +121,7 @@
 						</div>
  						-->
  						
- 						<%-- 문제) 데이터베이스에서 읽어온 사진 정보 출력하는 과정 작성 --%>
+ 						<%-- 데이터베이스에서 읽어온 사진 정보 출력하는 과정 작성 --%>
  						<c:forEach var="p" items="${plist}">
 						<div class="col-md-3">
 							<div class="thumbnail">
@@ -136,7 +132,6 @@
 								<div class="caption">
 									<p>${p.comment}</p>
 									<%-- 
-									문제)
 									삭제버튼 클릭시 모달창 오픈
 									모달창 삭제할까요? 메시지 및 확인, 취소 버튼 준비
 									확인 버튼 클릭시 삭제 액션 요청
