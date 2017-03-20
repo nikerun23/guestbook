@@ -1,7 +1,7 @@
 ## Spring 방명록 게시판
 
 ### 개요
-* **Spring Framework**를 이용한 게시판 개발 및 **Spring Security** 적용하였습니다.
+* **Spring Framework** 이용 및 **Spring Security** 적용한 방명록 게시판입니다.
 
 ### 주요 기술
 * 참여도: **개인프로젝트**
